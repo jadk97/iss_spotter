@@ -1,6 +1,6 @@
 const request = require("request");
 
-const fetchMyIP = function (callback) {
+const fetchMyIP = function(callback) {
   request("https://api.ipify.org?format=json", (error, response, body) => {
     if (error) {
       callback(error, null);
@@ -19,7 +19,7 @@ const fetchMyIP = function (callback) {
 };
 
 
-const fetchCoordsByIP = function (ip, callback) {
+const fetchCoordsByIP = function(ip, callback) {
   request(`https://ipvigilante.com/${ip}`, (error, response, body) => {
 
     if (error) {
@@ -40,7 +40,7 @@ const fetchCoordsByIP = function (ip, callback) {
   });
 };
 
-const fetchISSFlyOverTimes = function (coords, callback) {
+const fetchISSFlyOverTimes = function(coords, callback) {
   request(`http://api.open-notify.org/iss-pass.json?lat=${coords.latitude}&lon=${coords.longitude}`, (error, response, body) => {
 
     if (error) {
@@ -60,16 +60,7 @@ const fetchISSFlyOverTimes = function (coords, callback) {
 
 };
 
-/**
- * Orchestrates multiple API requests in order to determine the next 5 upcoming ISS fly overs for the user's current location.
- * Input:
- *   - A callback with an error or results. 
- * Returns (via Callback):
- *   - An error, if any (nullable)
- *   - The fly-over times as an array (null if error):
- *     [ { risetime: <number>, duration: <number> }, ... ]
- */
-const nextISSTimesForMyLocation = function (callback) {
+const nextISSTimesForMyLocation = function(callback) {
   fetchMyIP((error, ip) => {
     if (error) {
       console.log("It didn't work!", error);
